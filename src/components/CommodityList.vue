@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import Home from '../api/home'
+
 const DATA = [
     {
         img: require('../assets/images/recommend1.jpg'),
@@ -50,6 +52,19 @@ export default {
     },
     created(){
         console.log(this.$route.query.categoryName)
+        let postData = `[["IndustryNameOne","Sum","Num"],["${this.$route.query.categoryName}","1","5"]]`
+        Home.GetCommodityTable({
+            "SOURCE": "TEST",
+            "CREDENTIALS": "0",
+            "ADDRESS": "192.168.1.195",
+            "TERMINAL": "0",
+            "INDEX": "20170714",
+            "METHOD": "GetCommodityTable",
+            "UserAccount": "qw123456",
+            "DATA": encodeURI(postData)
+        }).then(res => {
+            console.log(res)
+        })
     },
     methods: {
         toDetail(){
